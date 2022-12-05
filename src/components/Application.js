@@ -1,83 +1,54 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
-
 import DayList from "./DayList";
 import Appointment from "./Appointment";
-
+import { getAppointmentsForDay, getInterview } from "helpers/selectors";
 import "components/Application.scss";
 
-// Mock appointments data
 
-const appointments = {
-  "1": {
-    id: 1,
-    time: "12pm",
-  },
-  "2": {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer:{
-        id: 3,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  "3": {
-    id: 3,
-    time: "2pm",
-  },
-  "4": {
-    id: 4,
-    time: "3pm",
-    interview: {
-      student: "Archie Andrews",
-      interviewer:{
-        id: 4,
-        name: "Cohana Roy",
-        avatar: "https://i.imgur.com/FK8V841.jpg",
-      }
-    }
-  },
-  "5": {
-    id: 5,
-    time: "4pm",
-  }
-};
+export default function Application() {
 
-
-
-export default function Application(props) {
-  // const [day, setDay] = useState("Monday");
-  // const [days, setDays] = useState([]);
+  // state settings
 
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
-  })
-
-  const setDay = day => setState(prev => ({...prev, day}))
-
-
+    appointments: {},
+    interviewers: {}
+  });
+  
   useEffect(() => {
-    axios.get("/api/days")
-    .then(res => {
-      setState((prev) => ({...prev, days: res.data}));
+    Promise.all([
+      axios.get("/api/days"),
+      axios.get("/api/appointments"),
+      axios.get("api/interviewers")
+    ]).then((all) => {
+      setState((prev) => ({
+        ...prev,
+        days: all[0].data,
+        appointments: all[1].data,
+        interviewers: all[2].data}))
     })
-  }, [])
+  }, []);
+  
+  const setDay = day => setState(prev => ({...prev, day}));
+  
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
 
-  const mockAppointments = Object.values(appointments).map((appointment) => {
+  const schedule = dailyAppointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
+
     return (
       <Appointment
         key={appointment.id}
-        {...appointment}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
       />
     )
-  })
+  });
+
+  //Application component
   
   return (
     <main className="layout">
@@ -102,7 +73,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {mockAppointments}
+        {schedule}
         <Appointment key="last" time="5pm" />
       </section>
     </main>
