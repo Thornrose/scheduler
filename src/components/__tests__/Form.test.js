@@ -48,7 +48,7 @@ describe("Form", () => {
     expect(onSave).not.toHaveBeenCalled();
   });
   
-  xit("calls onSave function when the name and interviewer are defined", () => {
+  it("calls onSave function when the name and interviewer are defined", () => {
     const onSave = jest.fn();
     const { queryByText, getByText } = render(
       <Form interviewers={interviewer} onSave={onSave} student="Lydia Miller-Jones" interviewer={1} />
@@ -65,7 +65,7 @@ describe("Form", () => {
     expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", 1);
   });
 
-  xit("submits the name entered by the user", () => {
+  it("submits the name entered by the user", () => {
     const onSave = jest.fn();
     const { getByText, getByPlaceholderText } = render(
       <Form interviewers={interviewer} onSave={onSave} interviewer={1} />

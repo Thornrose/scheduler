@@ -4,7 +4,6 @@ import axios from "axios";
 import { 
   cleanup, 
   render,
-  prettyDOM,
   fireEvent,
   getAllByAltText,
   getAllByTestId,
@@ -19,10 +18,6 @@ import Application from "components/Application";
 
 afterEach(cleanup);
 describe("Application", () => {
-
-  xit("renders without crashing", () => {
-    render(<Application />);
-  });
   
   it("defaults to Monday and changes the schedule when a new day is selected", async () => {
     const { getByText } = render(<Application />);
@@ -74,7 +69,7 @@ describe("Application", () => {
     
     fireEvent.click(getByAltText(appointment, "Delete"));
     //  4. expect confirm message is shown
-    expect(queryByText(appointment, /are you sure/i)).toBeInTheDocument;
+    expect(queryByText(appointment, /are you sure/i)).toBeInTheDocument();
     //  5. click confirm
     fireEvent.click(getByText(appointment, "Confirm"));
     //  6. expect element to contain deleting
@@ -123,7 +118,7 @@ describe("Application", () => {
   it("shows the save error when failing to save an appointment", async () => {
     axios.put.mockRejectedValueOnce(new Error("Error"));
 
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
     const firstEmpty = getAllByAltText(container, "Add")[0];
@@ -138,13 +133,13 @@ describe("Application", () => {
     
     expect(getByText(container, "Saving")).toBeInTheDocument();
     await waitForElement(() => getByText(container, "Something went wrong!"));
-    expect(getByText(container, "Error")).toBeInTheDocument;
+    expect(getByText(container, "Error")).toBeInTheDocument();
   });
 
   it("shows the delete error when failing to delete an appointment", async () => {
     axios.delete.mockRejectedValueOnce(new Error("Error"));
 
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
@@ -154,7 +149,7 @@ describe("Application", () => {
     
     fireEvent.click(getByAltText(appointment, "Delete"));
 
-    expect(queryByText(appointment, /are you sure/i)).toBeInTheDocument;
+    expect(queryByText(appointment, /are you sure/i)).toBeInTheDocument();
 
     fireEvent.click(getByText(appointment, "Confirm"));
 
@@ -162,7 +157,7 @@ describe("Application", () => {
     
 
     await waitForElement(() => getByText(container, "Something went wrong!"));
-    expect(getByText(container, "Error")).toBeInTheDocument;
+    expect(getByText(container, "Error")).toBeInTheDocument();
   });
 
 });
