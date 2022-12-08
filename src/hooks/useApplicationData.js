@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+// import { getAppointmentsForDay } from "helpers/selectors";
 
 export default function useApplicationData() {
 
@@ -27,10 +28,30 @@ export default function useApplicationData() {
     }, []);
     
   const setDay = day => setState(prev => ({...prev, day}));
+  
+  function updateSpots(id) {
+    if(state.appointments[id].interview === null) {
+      const filteredDay = state.days.filter((day) => day.appointments.includes(id));
+      const dayIndex = filteredDay[0].id - 1;
 
+      const day = {
+        ...state.days[dayIndex],
+        spots: state.days[dayIndex].spots - 1
+      }
+  
+      const days = [...state.days]
+      days.splice(dayIndex, 1, day);
+
+      return days;
+    } else {
+      const days = [...state.days];
+      return days;
+    }
+  };
   
 
   function bookInterview(id, interview) {
+    const days = updateSpots(id);
     const appointment = {
       ...state.appointments[id],
       interview: {...interview}
@@ -39,17 +60,6 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     }
-
-    const filteredDay = state.days.filter((day) => day.appointments.includes(id));
-    const dayIndex = filteredDay[0].id - 1;
-
-    const day = {
-      ...state.days[dayIndex],
-      spots: state.days[dayIndex].spots - 1
-    }
-
-    const days = [...state.days]
-    days.splice(dayIndex, 1, day);
 
     return axios.put(`/api/appointments/${id}`, {interview})
       .then(() => {
