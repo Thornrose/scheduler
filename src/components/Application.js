@@ -7,9 +7,9 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "help
 
 import "components/Application.scss";
 
-
+// Top level application component
 export default function Application() {
-
+  // state settings
   const {
     state,
     setDay,
@@ -35,6 +35,7 @@ export default function Application() {
     )
   });
   
+  // Application component
   return (
     <main className="layout">
       <section className="sidebar">

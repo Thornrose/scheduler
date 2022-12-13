@@ -5,6 +5,7 @@ import InterviewerListItem from "./InterviewerListItem";
 
 import "components/InterviewerList.scss";
 
+// component used in Appointment/Form.js
 export default function InterviewerList(props) {
 
   const interviewers = props.interviewers.map((interviewer) => {
@@ -27,6 +28,7 @@ export default function InterviewerList(props) {
   )
 }
 
+// Prop types validation
 InterviewerList.propTypes = {
   interviewers: propTypes.array.isRequired,
   value: propTypes.number,

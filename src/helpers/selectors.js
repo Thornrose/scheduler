@@ -1,5 +1,6 @@
+// helper functions used in Application.js
 
-
+// getAppointmentsForDay function takes in state object and currently selected day, returns appointment data for that day
 export function getAppointmentsForDay(state, day) {
   const filteredDay = state.days.filter((date) => date.name === day);
   const appointmentsArray = filteredDay[0] ? filteredDay[0].appointments : [];
@@ -10,6 +11,7 @@ export function getAppointmentsForDay(state, day) {
 
 }
 
+// getInterviewsForDay function takes in state object and currently selected day, returns interview data for that day
 export function getInterviewersForDay(state, day) {
   const filteredDay = state.days.filter((date) => date.name === day);
   const interviewersArray = filteredDay[0] ? filteredDay[0].interviewers : [];
@@ -20,6 +22,7 @@ export function getInterviewersForDay(state, day) {
 
 }
 
+// getInterview function takes in state object and appointment, returns current interviewer set for appointment if there is one
 export function getInterview(state, appointment) {
   if (!appointment) {
     return null;

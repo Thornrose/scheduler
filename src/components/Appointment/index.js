@@ -12,19 +12,22 @@ import useVisualMode from "hooks/useVisualMode";
 
 import "components/Appointment/styles.scss";
 
+// mode settings
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
+const EDIT = "EDIT";
 const SAVING = "SAVING";
+const CONFIRM = "CONFIRM";
 const DELETING = "DELETING";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
-const CONFIRM = "CONFIRM";
-const EDIT = "EDIT";
 
+// component used in components/Application.js
 export default function Appointment(props) {
   const {mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
 
+  // Save and Remove functions for create and edit modes
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -52,6 +55,7 @@ export default function Appointment(props) {
       })
   }
 
+  // Appointment component
   return (
     <article className="appointment" data-testid="appointment">
       <Header time={props.time} />

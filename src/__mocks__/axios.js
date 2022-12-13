@@ -1,4 +1,4 @@
-
+// mock data for jest testing
 const fixtures = {
   days: [
     {
@@ -54,6 +54,7 @@ const fixtures = {
   }
 };
 
+// mock routes for jest testing
 export default {
   defaults: { baseURL: "" },
   get: jest.fn((url) => {

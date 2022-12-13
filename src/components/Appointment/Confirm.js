@@ -2,6 +2,7 @@ import React from "react";
 
 import Button from "components/Button";
 
+// component used in Appointment/index.js
 export default function Confirm(props) {
 
   return (

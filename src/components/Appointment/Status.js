@@ -1,5 +1,6 @@
 import React from "react";
 
+// component used in Appointment/index.js
 export default function Status(props) {
 
   return (

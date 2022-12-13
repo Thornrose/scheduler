@@ -3,8 +3,9 @@ import React, {useState} from "react";
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
+// component used in Appointment/index.js
 export default function Form(props) {
-
+  // state settings
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
@@ -17,7 +18,7 @@ export default function Form(props) {
 
   const cancel = () => {
     reset();
-    props.onCancel(); // not sure about this, doing "return" also kinda worked... so 
+    props.onCancel();
   }
 
   const validate = () => {
@@ -33,6 +34,7 @@ export default function Form(props) {
     props.onSave(student, interviewer);
   }
 
+  // Form component
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">

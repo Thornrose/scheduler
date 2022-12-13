@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 import "components/DayListItem.scss";
 
+// component used in components/DayList.js
 export default function DayListItem(props) {
   const { name, spots, selected, setDay} = { ...props };
 
