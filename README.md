@@ -8,7 +8,9 @@ This project was our first deep-dive into using the react library / framework, a
 
 ## Setup
 
-Install dependencies with `npm install`.
+- Install dependencies with `npm install`.
+
+
 
 ### Running Webpack Development Server
 
