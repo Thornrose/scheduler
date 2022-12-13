@@ -34,13 +34,13 @@ export default function Appointment(props) {
       interviewer
     };
 
-    transition(SAVING, true);
+    transition(SAVING);
     props.bookInterview(props.id, interview)
       .then(() => {
         transition(SHOW);
       })
       .catch(() => {
-        transition(ERROR_SAVE);
+        transition(ERROR_SAVE, true);
       })
   }
 
@@ -51,7 +51,7 @@ export default function Appointment(props) {
         transition(EMPTY);
       })
       .catch(() => {
-        transition(ERROR_DELETE);
+        transition(ERROR_DELETE, true);
       })
   }
 
