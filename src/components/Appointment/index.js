@@ -23,34 +23,34 @@ const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
 
 export default function Appointment(props) {
-const {mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
+  const {mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
 
-function save(name, interviewer) {
-  const interview = {
-    student: name,
-    interviewer
-  };
+  function save(name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer
+    };
 
-  transition(SAVING, true);
-  props.bookInterview(props.id, interview)
-    .then(() => {
-      transition(SHOW);
-    })
-    .catch(() => {
-      transition(ERROR_SAVE, true);
-    })
-}
+    transition(SAVING, true);
+    props.bookInterview(props.id, interview)
+      .then(() => {
+        transition(SHOW);
+      })
+      .catch(() => {
+        transition(ERROR_SAVE);
+      })
+  }
 
-function remove() {
-  transition(DELETING, true);
-  props.cancelInterview(props.id)
-  .then(() => {
-    transition(EMPTY);
-  })
-  .catch(() => {
-    transition(ERROR_DELETE, true);
-  })
-}
+  function remove() {
+    transition(DELETING, true);
+    props.cancelInterview(props.id)
+      .then(() => {
+        transition(EMPTY);
+      })
+      .catch(() => {
+        transition(ERROR_DELETE);
+      })
+  }
 
   return (
     <article className="appointment" data-testid="appointment">
