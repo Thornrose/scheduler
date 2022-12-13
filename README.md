@@ -8,24 +8,12 @@ This project was our first deep-dive into using the react library / framework, a
 
 ## Setup
 
-- Install dependencies with `npm install`.
-
-
-
-### Running Webpack Development Server
-
-```sh
-npm start
-```
-
-### Running Jest Test Framework
-
-```sh
-npm test
-```
-
-### Running Storybook Visual Testbed
-
-```sh
-npm run storybook
-```
+- Clone this repo.
+- From the provided [scheduler API](https://github.com/lighthouse-labs/scheduler-api), clone the repo and follow the readme steps .
+- In both the scheduler and scheduler-api directories, install dependencies with `npm install`.
+- From the API directory, start the API in one of two modes:
+  - `npm start` will start the API functioning as normal.
+  - `npm run error` will start the API but force errors to test error handling.
+- From the scheduler directory, start the scheduler app (in a separate console window) with `npm start`.
+  - to run jest test suites, use command `npm test`.
+  - to run storybook, use command `npm run storybook`.
